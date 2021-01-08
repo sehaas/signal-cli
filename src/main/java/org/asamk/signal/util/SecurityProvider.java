@@ -6,8 +6,8 @@ import java.security.SecureRandomSpi;
 
 public class SecurityProvider extends Provider {
 
+	private static final long serialVersionUID = -460193670074300587L;
 	private static final String PROVIDER_NAME = "SSP";
-
 	private static final String info = "Security Provider v1.0";
 
 	public SecurityProvider() {
@@ -27,6 +27,7 @@ public class SecurityProvider extends Provider {
 
 	public static class DefaultRandom extends SecureRandomSpi {
 
+		private static final long serialVersionUID = -6274765302908480908L;
 		private static final SecureRandom random = RandomUtils.getSecureRandom();
 
 		public DefaultRandom() {

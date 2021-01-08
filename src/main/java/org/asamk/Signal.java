@@ -152,12 +152,16 @@ public interface Signal extends DBusInterface {
 
 		class AttachmentInvalid extends DBusExecutionException {
 
+			private static final long serialVersionUID = 4282168652039523924L;
+
 			public AttachmentInvalid(final String message) {
 				super(message);
 			}
 		}
 
 		class Failure extends DBusExecutionException {
+
+			private static final long serialVersionUID = 3122393657816867350L;
 
 			public Failure(final String message) {
 				super(message);
@@ -166,12 +170,16 @@ public interface Signal extends DBusInterface {
 
 		class GroupNotFound extends DBusExecutionException {
 
+			private static final long serialVersionUID = -5642949781534599741L;
+
 			public GroupNotFound(final String message) {
 				super(message);
 			}
 		}
 
 		class InvalidNumber extends DBusExecutionException {
+
+			private static final long serialVersionUID = 1022041367734807881L;
 
 			public InvalidNumber(final String message) {
 				super(message);
@@ -180,12 +188,16 @@ public interface Signal extends DBusInterface {
 
 		class UnregisteredUser extends DBusExecutionException {
 
+			private static final long serialVersionUID = -2656644074560613152L;
+
 			public UnregisteredUser(final String message) {
 				super(message);
 			}
 		}
 
 		class UntrustedIdentity extends DBusExecutionException {
+
+			private static final long serialVersionUID = 4728804065079779197L;
 
 			public UntrustedIdentity(final String message) {
 				super(message);
