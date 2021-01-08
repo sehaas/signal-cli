@@ -1,14 +1,9 @@
 package org.asamk.signal.commands;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import static org.asamk.signal.util.ErrorUtils.handleAssertionError;
 
-import net.sourceforge.argparse4j.impl.Arguments;
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.asamk.Signal;
 import org.asamk.signal.JsonReceiveMessageHandler;
@@ -20,10 +15,15 @@ import org.freedesktop.dbus.connections.impl.DBusConnection;
 import org.freedesktop.dbus.exceptions.DBusException;
 import org.whispersystems.util.Base64;
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import static org.asamk.signal.util.ErrorUtils.handleAssertionError;
+import net.sourceforge.argparse4j.impl.Arguments;
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class ReceiveCommand implements ExtendedDbusCommand, LocalCommand {
 

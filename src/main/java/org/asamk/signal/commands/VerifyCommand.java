@@ -1,14 +1,14 @@
 package org.asamk.signal.commands;
 
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
+import java.io.IOException;
 
 import org.asamk.signal.manager.Manager;
 import org.whispersystems.signalservice.api.KeyBackupServicePinException;
 import org.whispersystems.signalservice.api.KeyBackupSystemNoDataException;
 import org.whispersystems.signalservice.internal.push.LockedException;
 
-import java.io.IOException;
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class VerifyCommand implements LocalCommand {
 

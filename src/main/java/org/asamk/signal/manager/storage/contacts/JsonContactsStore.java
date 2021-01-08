@@ -1,11 +1,11 @@
 package org.asamk.signal.manager.storage.contacts;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class JsonContactsStore {
 

@@ -1,16 +1,16 @@
 package org.asamk.signal.commands;
 
-import net.sourceforge.argparse4j.impl.Arguments;
-import net.sourceforge.argparse4j.inf.MutuallyExclusiveGroup;
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
+import java.util.Locale;
 
 import org.asamk.signal.manager.Manager;
 import org.asamk.signal.util.ErrorUtils;
 import org.asamk.signal.util.Hex;
 import org.whispersystems.signalservice.api.util.InvalidNumberException;
 
-import java.util.Locale;
+import net.sourceforge.argparse4j.impl.Arguments;
+import net.sourceforge.argparse4j.inf.MutuallyExclusiveGroup;
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class TrustCommand implements LocalCommand {
 

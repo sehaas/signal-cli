@@ -1,5 +1,7 @@
 package org.asamk.signal.manager.helper;
 
+import java.io.IOException;
+
 import org.asamk.signal.manager.util.PinHashing;
 import org.whispersystems.signalservice.api.KbsPinData;
 import org.whispersystems.signalservice.api.KeyBackupService;
@@ -10,8 +12,6 @@ import org.whispersystems.signalservice.api.kbs.MasterKey;
 import org.whispersystems.signalservice.internal.contacts.crypto.UnauthenticatedResponseException;
 import org.whispersystems.signalservice.internal.contacts.entities.TokenResponse;
 import org.whispersystems.signalservice.internal.push.LockedException;
-
-import java.io.IOException;
 
 public class PinHelper {
 

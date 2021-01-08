@@ -1,8 +1,8 @@
 package org.asamk.signal.manager.groups;
 
-import org.whispersystems.util.Base64;
-
 import java.util.Arrays;
+
+import org.whispersystems.util.Base64;
 
 public abstract class GroupId {
 

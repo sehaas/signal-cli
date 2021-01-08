@@ -1,13 +1,13 @@
 package org.asamk.signal.commands;
 
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
+import java.io.File;
+import java.io.IOException;
 
 import org.asamk.signal.manager.Manager;
 import org.asamk.signal.manager.StickerPackInvalidException;
 
-import java.io.File;
-import java.io.IOException;
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class UploadStickerPackCommand implements LocalCommand {
 

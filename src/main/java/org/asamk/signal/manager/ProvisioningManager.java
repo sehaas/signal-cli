@@ -16,6 +16,10 @@
  */
 package org.asamk.signal.manager;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
+
 import org.asamk.signal.manager.storage.SignalAccount;
 import org.asamk.signal.manager.util.KeyUtils;
 import org.signal.zkgroup.InvalidInputException;
@@ -31,10 +35,6 @@ import org.whispersystems.signalservice.api.util.SleepTimer;
 import org.whispersystems.signalservice.api.util.UptimeSleepTimer;
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
 import org.whispersystems.signalservice.internal.util.DynamicCredentialsProvider;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 
 public class ProvisioningManager {
 

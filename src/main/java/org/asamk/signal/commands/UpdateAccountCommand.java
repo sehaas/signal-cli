@@ -1,11 +1,11 @@
 package org.asamk.signal.commands;
 
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
+import java.io.IOException;
 
 import org.asamk.signal.manager.Manager;
 
-import java.io.IOException;
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class UpdateAccountCommand implements LocalCommand {
 

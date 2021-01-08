@@ -1,8 +1,8 @@
 package org.asamk.signal.json;
 
-import org.whispersystems.signalservice.api.messages.SignalServiceReceiptMessage;
-
 import java.util.List;
+
+import org.whispersystems.signalservice.api.messages.SignalServiceReceiptMessage;
 
 class JsonReceiptMessage {
 

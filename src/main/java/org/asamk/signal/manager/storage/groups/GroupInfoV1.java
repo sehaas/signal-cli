@@ -1,5 +1,18 @@
 package org.asamk.signal.manager.storage.groups;
 
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
+import org.asamk.signal.manager.groups.GroupId;
+import org.asamk.signal.manager.groups.GroupIdV1;
+import org.asamk.signal.manager.groups.GroupIdV2;
+import org.asamk.signal.manager.groups.GroupInviteLinkUrl;
+import org.asamk.signal.manager.groups.GroupUtils;
+import org.whispersystems.signalservice.api.push.SignalServiceAddress;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -12,19 +25,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import org.asamk.signal.manager.groups.GroupId;
-import org.asamk.signal.manager.groups.GroupIdV1;
-import org.asamk.signal.manager.groups.GroupIdV2;
-import org.asamk.signal.manager.groups.GroupInviteLinkUrl;
-import org.asamk.signal.manager.groups.GroupUtils;
-import org.whispersystems.signalservice.api.push.SignalServiceAddress;
-
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
 
 public class GroupInfoV1 extends GroupInfo {
 

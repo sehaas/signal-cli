@@ -1,11 +1,11 @@
 package org.asamk.signal.manager.storage.profiles;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.File;
 
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile;
 
-import java.io.File;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SignalProfile {
 

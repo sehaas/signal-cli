@@ -1,7 +1,11 @@
 package org.asamk.signal.commands;
 
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
+import static org.asamk.signal.util.ErrorUtils.handleAssertionError;
+import static org.asamk.signal.util.ErrorUtils.handleIOException;
+import static org.asamk.signal.util.ErrorUtils.handleTimestampAndSendMessageResults;
+
+import java.io.IOException;
+import java.util.List;
 
 import org.asamk.Signal;
 import org.asamk.signal.manager.Manager;
@@ -13,12 +17,8 @@ import org.whispersystems.signalservice.api.groupsv2.GroupLinkNotActiveException
 import org.whispersystems.signalservice.api.messages.SendMessageResult;
 import org.whispersystems.signalservice.internal.push.exceptions.GroupPatchNotAcceptedException;
 
-import java.io.IOException;
-import java.util.List;
-
-import static org.asamk.signal.util.ErrorUtils.handleAssertionError;
-import static org.asamk.signal.util.ErrorUtils.handleIOException;
-import static org.asamk.signal.util.ErrorUtils.handleTimestampAndSendMessageResults;
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class JoinGroupCommand implements LocalCommand {
 

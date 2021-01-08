@@ -1,8 +1,11 @@
 package org.asamk.signal.commands;
 
-import net.sourceforge.argparse4j.impl.Arguments;
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
+import static org.asamk.signal.DbusConfig.SIGNAL_BUSNAME;
+import static org.asamk.signal.DbusConfig.SIGNAL_OBJECTPATH;
+import static org.asamk.signal.util.ErrorUtils.handleAssertionError;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.asamk.signal.DbusReceiveMessageHandler;
 import org.asamk.signal.JsonDbusReceiveMessageHandler;
@@ -11,12 +14,9 @@ import org.asamk.signal.manager.Manager;
 import org.freedesktop.dbus.connections.impl.DBusConnection;
 import org.freedesktop.dbus.exceptions.DBusException;
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
-import static org.asamk.signal.DbusConfig.SIGNAL_BUSNAME;
-import static org.asamk.signal.DbusConfig.SIGNAL_OBJECTPATH;
-import static org.asamk.signal.util.ErrorUtils.handleAssertionError;
+import net.sourceforge.argparse4j.impl.Arguments;
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class DaemonCommand implements LocalCommand {
 

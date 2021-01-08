@@ -1,8 +1,8 @@
 package org.asamk.signal.manager.groups;
 
-import org.asamk.signal.manager.util.KeyUtils;
-
 import java.util.Arrays;
+
+import org.asamk.signal.manager.util.KeyUtils;
 
 public final class GroupLinkPassword {
 

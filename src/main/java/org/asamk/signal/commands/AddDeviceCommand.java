@@ -1,16 +1,16 @@
 package org.asamk.signal.commands;
 
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
-
-import org.asamk.signal.manager.Manager;
-import org.whispersystems.libsignal.InvalidKeyException;
+import static org.asamk.signal.util.ErrorUtils.handleAssertionError;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static org.asamk.signal.util.ErrorUtils.handleAssertionError;
+import org.asamk.signal.manager.Manager;
+import org.whispersystems.libsignal.InvalidKeyException;
+
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class AddDeviceCommand implements LocalCommand {
 

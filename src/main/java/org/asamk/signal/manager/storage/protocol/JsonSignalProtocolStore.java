@@ -1,8 +1,6 @@
 package org.asamk.signal.manager.storage.protocol;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.util.List;
 
 import org.asamk.signal.manager.TrustLevel;
 import org.whispersystems.libsignal.IdentityKey;
@@ -15,7 +13,9 @@ import org.whispersystems.libsignal.state.SignalProtocolStore;
 import org.whispersystems.libsignal.state.SignedPreKeyRecord;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class JsonSignalProtocolStore implements SignalProtocolStore {
 

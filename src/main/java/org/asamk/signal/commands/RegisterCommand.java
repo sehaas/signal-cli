@@ -1,13 +1,13 @@
 package org.asamk.signal.commands;
 
-import net.sourceforge.argparse4j.impl.Arguments;
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
+import java.io.IOException;
 
 import org.asamk.signal.manager.Manager;
 import org.whispersystems.signalservice.api.push.exceptions.CaptchaRequiredException;
 
-import java.io.IOException;
+import net.sourceforge.argparse4j.impl.Arguments;
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class RegisterCommand implements LocalCommand {
 

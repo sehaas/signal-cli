@@ -1,5 +1,8 @@
 package org.asamk.signal;
 
+import java.io.File;
+import java.util.List;
+
 import org.asamk.signal.manager.Manager;
 import org.asamk.signal.manager.groups.GroupId;
 import org.asamk.signal.manager.groups.GroupUtils;
@@ -37,9 +40,6 @@ import org.whispersystems.signalservice.api.messages.multidevice.ViewOnceOpenMes
 import org.whispersystems.signalservice.api.messages.shared.SharedContact;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.util.Base64;
-
-import java.io.File;
-import java.util.List;
 
 public class ReceiveMessageHandler implements Manager.ReceiveMessageHandler {
 

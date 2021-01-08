@@ -1,13 +1,13 @@
 package org.asamk.signal.json;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.asamk.signal.manager.groups.GroupUtils;
 import org.whispersystems.signalservice.api.messages.SignalServiceGroup;
 import org.whispersystems.signalservice.api.messages.SignalServiceGroupV2;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.util.Base64;
-
-import java.util.ArrayList;
-import java.util.List;
 
 class JsonGroupInfo {
 

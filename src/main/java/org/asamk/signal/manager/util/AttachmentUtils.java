@@ -1,11 +1,5 @@
 package org.asamk.signal.manager.util;
 
-import org.asamk.signal.manager.AttachmentInvalidException;
-import org.whispersystems.libsignal.util.guava.Optional;
-import org.whispersystems.signalservice.api.messages.SignalServiceAttachment;
-import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentStream;
-import org.whispersystems.signalservice.internal.push.http.ResumableUploadSpec;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,6 +9,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.asamk.signal.manager.AttachmentInvalidException;
+import org.whispersystems.libsignal.util.guava.Optional;
+import org.whispersystems.signalservice.api.messages.SignalServiceAttachment;
+import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentStream;
+import org.whispersystems.signalservice.internal.push.http.ResumableUploadSpec;
 
 public class AttachmentUtils {
 

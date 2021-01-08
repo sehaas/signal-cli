@@ -1,9 +1,9 @@
 package org.asamk.signal.manager;
 
+import java.util.Objects;
+
 import org.asamk.signal.manager.groups.GroupIdV1;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
-
-import java.util.Objects;
 
 interface HandleAction {
 

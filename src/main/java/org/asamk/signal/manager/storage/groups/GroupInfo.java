@@ -1,14 +1,14 @@
 package org.asamk.signal.manager.storage.groups;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.asamk.signal.manager.groups.GroupId;
 import org.asamk.signal.manager.groups.GroupInviteLinkUrl;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public abstract class GroupInfo {
 

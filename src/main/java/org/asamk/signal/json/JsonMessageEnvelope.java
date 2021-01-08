@@ -1,12 +1,12 @@
 package org.asamk.signal.json;
 
+import java.util.List;
+
 import org.asamk.Signal;
 import org.asamk.signal.manager.Manager;
 import org.whispersystems.signalservice.api.messages.SignalServiceContent;
 import org.whispersystems.signalservice.api.messages.SignalServiceEnvelope;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
-
-import java.util.List;
 
 public class JsonMessageEnvelope {
 

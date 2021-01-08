@@ -1,7 +1,6 @@
 package org.asamk.signal.commands;
 
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
+import java.util.List;
 
 import org.asamk.signal.manager.Manager;
 import org.asamk.signal.manager.storage.protocol.IdentityInfo;
@@ -9,7 +8,8 @@ import org.asamk.signal.util.Hex;
 import org.asamk.signal.util.Util;
 import org.whispersystems.signalservice.api.util.InvalidNumberException;
 
-import java.util.List;
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class ListIdentitiesCommand implements LocalCommand {
 

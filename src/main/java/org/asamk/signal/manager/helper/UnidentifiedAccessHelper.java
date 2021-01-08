@@ -1,5 +1,11 @@
 package org.asamk.signal.manager.helper;
 
+import static org.whispersystems.signalservice.internal.util.Util.getSecretBytes;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.asamk.signal.manager.storage.profiles.SignalProfile;
 import org.signal.libsignal.metadata.certificate.InvalidCertificateException;
 import org.signal.zkgroup.profiles.ProfileKey;
@@ -7,12 +13,6 @@ import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.crypto.UnidentifiedAccess;
 import org.whispersystems.signalservice.api.crypto.UnidentifiedAccessPair;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.whispersystems.signalservice.internal.util.Util.getSecretBytes;
 
 public class UnidentifiedAccessHelper {
 

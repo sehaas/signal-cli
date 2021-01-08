@@ -1,13 +1,13 @@
 package org.asamk.signal.json;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.asamk.Signal;
 import org.asamk.signal.manager.Manager;
 import org.whispersystems.signalservice.api.messages.multidevice.ReadMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.SignalServiceSyncMessage;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
-
-import java.util.ArrayList;
-import java.util.List;
 
 enum JsonSyncMessageType {
     CONTACTS_SYNC,

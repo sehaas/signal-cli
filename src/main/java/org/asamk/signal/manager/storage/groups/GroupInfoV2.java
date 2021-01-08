@@ -1,5 +1,8 @@
 package org.asamk.signal.manager.storage.groups;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.asamk.signal.manager.groups.GroupIdV2;
 import org.asamk.signal.manager.groups.GroupInviteLinkUrl;
 import org.signal.storageservice.protos.groups.AccessControl;
@@ -7,9 +10,6 @@ import org.signal.storageservice.protos.groups.local.DecryptedGroup;
 import org.signal.zkgroup.groups.GroupMasterKey;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.util.UuidUtil;
-
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class GroupInfoV2 extends GroupInfo {
 

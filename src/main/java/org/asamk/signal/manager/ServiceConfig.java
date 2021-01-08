@@ -1,5 +1,14 @@
 package org.asamk.signal.manager;
 
+import java.io.IOException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.util.Base64;
+import java.util.List;
+import java.util.Map;
+
 import org.bouncycastle.util.encoders.Hex;
 import org.signal.zkgroup.ServerPublicParams;
 import org.whispersystems.libsignal.InvalidKeyException;
@@ -14,15 +23,6 @@ import org.whispersystems.signalservice.internal.configuration.SignalKeyBackupSe
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
 import org.whispersystems.signalservice.internal.configuration.SignalServiceUrl;
 import org.whispersystems.signalservice.internal.configuration.SignalStorageUrl;
-
-import java.io.IOException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
-import java.util.Base64;
-import java.util.List;
-import java.util.Map;
 
 import okhttp3.Dns;
 import okhttp3.Interceptor;

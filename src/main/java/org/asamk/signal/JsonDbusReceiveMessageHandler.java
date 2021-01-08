@@ -1,5 +1,8 @@
 package org.asamk.signal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.asamk.Signal;
 import org.asamk.signal.manager.Manager;
 import org.asamk.signal.manager.groups.GroupUtils;
@@ -14,9 +17,6 @@ import org.whispersystems.signalservice.api.messages.SignalServiceReceiptMessage
 import org.whispersystems.signalservice.api.messages.multidevice.SentTranscriptMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.SignalServiceSyncMessage;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class JsonDbusReceiveMessageHandler extends JsonReceiveMessageHandler {
 

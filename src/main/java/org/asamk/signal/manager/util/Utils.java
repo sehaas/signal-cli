@@ -1,14 +1,5 @@
 package org.asamk.signal.manager.util;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
-import org.whispersystems.libsignal.IdentityKey;
-import org.whispersystems.libsignal.fingerprint.Fingerprint;
-import org.whispersystems.libsignal.fingerprint.NumericFingerprintGenerator;
-import org.whispersystems.signalservice.api.push.SignalServiceAddress;
-import org.whispersystems.signalservice.api.util.StreamDetails;
-import org.whispersystems.signalservice.api.util.UuidUtil;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +8,15 @@ import java.io.InputStream;
 import java.io.InvalidObjectException;
 import java.net.URLConnection;
 import java.nio.file.Files;
+
+import org.whispersystems.libsignal.IdentityKey;
+import org.whispersystems.libsignal.fingerprint.Fingerprint;
+import org.whispersystems.libsignal.fingerprint.NumericFingerprintGenerator;
+import org.whispersystems.signalservice.api.push.SignalServiceAddress;
+import org.whispersystems.signalservice.api.util.StreamDetails;
+import org.whispersystems.signalservice.api.util.UuidUtil;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 public class Utils {
 

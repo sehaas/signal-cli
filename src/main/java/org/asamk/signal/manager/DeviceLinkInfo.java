@@ -1,9 +1,6 @@
 package org.asamk.signal.manager;
 
-import org.whispersystems.libsignal.InvalidKeyException;
-import org.whispersystems.libsignal.ecc.Curve;
-import org.whispersystems.libsignal.ecc.ECPublicKey;
-import org.whispersystems.util.Base64;
+import static org.whispersystems.signalservice.internal.util.Util.isEmpty;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,7 +10,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.whispersystems.signalservice.internal.util.Util.isEmpty;
+import org.whispersystems.libsignal.InvalidKeyException;
+import org.whispersystems.libsignal.ecc.Curve;
+import org.whispersystems.libsignal.ecc.ECPublicKey;
+import org.whispersystems.util.Base64;
 
 public class DeviceLinkInfo {
 

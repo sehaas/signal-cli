@@ -1,6 +1,13 @@
 package org.asamk.signal.manager.helper;
 
-import com.google.protobuf.InvalidProtocolBufferException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.asamk.signal.manager.groups.GroupIdV2;
 import org.asamk.signal.manager.groups.GroupLinkPassword;
@@ -36,14 +43,7 @@ import org.whispersystems.signalservice.api.groupsv2.NotAbleToApplyGroupV2Change
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.util.UuidUtil;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 public class GroupHelper {
 

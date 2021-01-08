@@ -1,8 +1,8 @@
 package org.asamk.signal.manager;
 
-import org.whispersystems.signalservice.api.push.TrustStore;
-
 import java.io.InputStream;
+
+import org.whispersystems.signalservice.api.push.TrustStore;
 
 class IasTrustStore implements TrustStore {
 

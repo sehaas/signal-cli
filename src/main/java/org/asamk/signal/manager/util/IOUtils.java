@@ -1,6 +1,8 @@
 package org.asamk.signal.manager.util;
 
-import org.whispersystems.signalservice.internal.util.Util;
+import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
+import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
+import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -15,9 +17,7 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.util.EnumSet;
 import java.util.Set;
 
-import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
-import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
-import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
+import org.whispersystems.signalservice.internal.util.Util;
 
 public class IOUtils {
 

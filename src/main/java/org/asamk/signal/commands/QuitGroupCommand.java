@@ -1,7 +1,14 @@
 package org.asamk.signal.commands;
 
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
+import static org.asamk.signal.util.ErrorUtils.handleAssertionError;
+import static org.asamk.signal.util.ErrorUtils.handleGroupIdFormatException;
+import static org.asamk.signal.util.ErrorUtils.handleGroupNotFoundException;
+import static org.asamk.signal.util.ErrorUtils.handleIOException;
+import static org.asamk.signal.util.ErrorUtils.handleNotAGroupMemberException;
+import static org.asamk.signal.util.ErrorUtils.handleTimestampAndSendMessageResults;
+
+import java.io.IOException;
+import java.util.List;
 
 import org.asamk.signal.manager.Manager;
 import org.asamk.signal.manager.groups.GroupId;
@@ -12,15 +19,8 @@ import org.asamk.signal.util.Util;
 import org.whispersystems.libsignal.util.Pair;
 import org.whispersystems.signalservice.api.messages.SendMessageResult;
 
-import java.io.IOException;
-import java.util.List;
-
-import static org.asamk.signal.util.ErrorUtils.handleAssertionError;
-import static org.asamk.signal.util.ErrorUtils.handleGroupIdFormatException;
-import static org.asamk.signal.util.ErrorUtils.handleGroupNotFoundException;
-import static org.asamk.signal.util.ErrorUtils.handleIOException;
-import static org.asamk.signal.util.ErrorUtils.handleNotAGroupMemberException;
-import static org.asamk.signal.util.ErrorUtils.handleTimestampAndSendMessageResults;
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class QuitGroupCommand implements LocalCommand {
 

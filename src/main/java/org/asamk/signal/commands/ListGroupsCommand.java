@@ -1,17 +1,17 @@
 package org.asamk.signal.commands;
 
-import net.sourceforge.argparse4j.impl.Arguments;
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.asamk.signal.manager.Manager;
 import org.asamk.signal.manager.groups.GroupInviteLinkUrl;
 import org.asamk.signal.manager.storage.groups.GroupInfo;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import net.sourceforge.argparse4j.impl.Arguments;
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class ListGroupsCommand implements LocalCommand {
 

@@ -1,7 +1,10 @@
 package org.asamk.signal.commands;
 
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
+import static org.asamk.signal.util.ErrorUtils.handleAssertionError;
+import static org.asamk.signal.util.ErrorUtils.handleGroupIdFormatException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.asamk.Signal;
 import org.asamk.signal.manager.groups.GroupIdFormatException;
@@ -9,11 +12,8 @@ import org.asamk.signal.util.Util;
 import org.freedesktop.dbus.exceptions.DBusExecutionException;
 import org.whispersystems.util.Base64;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.asamk.signal.util.ErrorUtils.handleAssertionError;
-import static org.asamk.signal.util.ErrorUtils.handleGroupIdFormatException;
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class UpdateGroupCommand implements DbusCommand {
 

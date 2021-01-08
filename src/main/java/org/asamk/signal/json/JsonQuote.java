@@ -1,11 +1,11 @@
 package org.asamk.signal.json;
 
-import org.asamk.signal.manager.Manager;
-import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.asamk.signal.manager.Manager;
+import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
 
 public class JsonQuote {
 

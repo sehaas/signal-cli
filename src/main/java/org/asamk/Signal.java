@@ -1,11 +1,11 @@
 package org.asamk;
 
+import java.util.List;
+
 import org.freedesktop.dbus.exceptions.DBusException;
 import org.freedesktop.dbus.exceptions.DBusExecutionException;
 import org.freedesktop.dbus.interfaces.DBusInterface;
 import org.freedesktop.dbus.messages.DBusSignal;
-
-import java.util.List;
 
 /**
  * DBus interface for the org.asamk.Signal service.

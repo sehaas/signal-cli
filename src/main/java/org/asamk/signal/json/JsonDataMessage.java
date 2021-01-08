@@ -1,13 +1,13 @@
 package org.asamk.signal.json;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.asamk.Signal;
 import org.asamk.signal.manager.Manager;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
 import org.whispersystems.signalservice.api.messages.SignalServiceGroup;
 import org.whispersystems.signalservice.api.messages.SignalServiceGroupV2;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 class JsonDataMessage {
 

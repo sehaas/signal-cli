@@ -1,16 +1,16 @@
 package org.asamk.signal.commands;
 
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
+import static org.asamk.signal.util.ErrorUtils.handleAssertionError;
+
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 import org.asamk.signal.manager.ProvisioningManager;
 import org.asamk.signal.manager.UserAlreadyExists;
 import org.whispersystems.libsignal.InvalidKeyException;
 
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-
-import static org.asamk.signal.util.ErrorUtils.handleAssertionError;
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class LinkCommand implements ProvisioningCommand {
 

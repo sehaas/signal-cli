@@ -1,13 +1,13 @@
 package org.asamk.signal.manager.storage.contacts;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import org.whispersystems.signalservice.api.push.SignalServiceAddress;
+import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
 import java.util.UUID;
 
-import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
+import org.whispersystems.signalservice.api.push.SignalServiceAddress;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ContactInfo {
 

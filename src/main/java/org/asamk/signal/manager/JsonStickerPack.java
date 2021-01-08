@@ -1,8 +1,8 @@
 package org.asamk.signal.manager;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 class JsonStickerPack {
 

@@ -1,14 +1,14 @@
 package org.asamk.signal.commands;
 
-import net.sourceforge.argparse4j.inf.Namespace;
-import net.sourceforge.argparse4j.inf.Subparser;
+import java.io.IOException;
+import java.util.List;
 
 import org.asamk.signal.manager.Manager;
 import org.asamk.signal.util.DateUtils;
 import org.whispersystems.signalservice.api.messages.multidevice.DeviceInfo;
 
-import java.io.IOException;
-import java.util.List;
+import net.sourceforge.argparse4j.inf.Namespace;
+import net.sourceforge.argparse4j.inf.Subparser;
 
 public class ListDevicesCommand implements LocalCommand {
 

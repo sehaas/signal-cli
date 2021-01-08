@@ -1,10 +1,10 @@
 package org.asamk.signal.manager.storage.protocol;
 
+import java.util.Date;
+
 import org.asamk.signal.manager.TrustLevel;
 import org.whispersystems.libsignal.IdentityKey;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
-
-import java.util.Date;
 
 public class IdentityInfo {
 
