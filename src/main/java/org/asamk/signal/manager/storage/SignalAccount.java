@@ -5,11 +5,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.channels.Channels;
 import java.nio.channels.ClosedChannelException;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
+import java.nio.file.StandardOpenOption;
 import java.util.Collection;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -362,7 +362,8 @@ public class SignalAccount implements Closeable {
 	}
 
 	private static Pair<FileChannel, FileLock> openFileChannel(File fileName) throws IOException {
-		FileChannel fileChannel = new RandomAccessFile(fileName, "rw").getChannel();
+		FileChannel fileChannel = FileChannel.open(fileName.toPath(), StandardOpenOption.READ,
+				StandardOpenOption.WRITE);
 		FileLock lock = fileChannel.tryLock();
 		if (lock == null) {
 			logger.info("Config file is in use by another instance, waiting…");

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.asamk.signal.manager.Manager;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -67,8 +68,10 @@ public class GetUserStatusCommand implements LocalCommand {
 
 	private static final class JsonIsRegistered {
 
+		@JsonProperty
 		public String name;
 
+		@JsonProperty
 		public boolean isRegistered;
 
 		public JsonIsRegistered(String name, boolean isRegistered) {

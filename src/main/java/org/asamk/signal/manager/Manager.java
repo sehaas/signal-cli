@@ -1566,6 +1566,8 @@ public class Manager implements Closeable {
 							actions.add(new SendGroupUpdateAction(source, groupV1.getGroupId()));
 						}
 						break;
+					case UNKNOWN:
+						break;
 					}
 				} else {
 					// Received a group v1 message for a v2 group
