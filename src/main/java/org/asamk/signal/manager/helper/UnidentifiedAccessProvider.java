@@ -6,5 +6,5 @@ import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
 public interface UnidentifiedAccessProvider {
 
-    Optional<UnidentifiedAccessPair> getAccessFor(SignalServiceAddress address);
+	Optional<UnidentifiedAccessPair> getAccessFor(SignalServiceAddress address);
 }

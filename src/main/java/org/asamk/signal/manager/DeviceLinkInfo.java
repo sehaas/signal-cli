@@ -17,44 +17,42 @@ import org.whispersystems.util.Base64;
 
 public class DeviceLinkInfo {
 
-    final String deviceIdentifier;
-    final ECPublicKey deviceKey;
+	final String deviceIdentifier;
+	final ECPublicKey deviceKey;
 
-    public static DeviceLinkInfo parseDeviceLinkUri(URI linkUri) throws IOException, InvalidKeyException {
-        Map<String, String> query = getQueryMap(linkUri.getRawQuery());
-        String deviceIdentifier = query.get("uuid");
-        String publicKeyEncoded = query.get("pub_key");
+	public static DeviceLinkInfo parseDeviceLinkUri(URI linkUri) throws IOException, InvalidKeyException {
+		Map<String, String> query = getQueryMap(linkUri.getRawQuery());
+		String deviceIdentifier = query.get("uuid");
+		String publicKeyEncoded = query.get("pub_key");
 
-        if (isEmpty(deviceIdentifier) || isEmpty(publicKeyEncoded)) {
-            throw new RuntimeException("Invalid device link uri");
-        }
+		if (isEmpty(deviceIdentifier) || isEmpty(publicKeyEncoded)) {
+			throw new RuntimeException("Invalid device link uri");
+		}
 
-        ECPublicKey deviceKey = Curve.decodePoint(Base64.decode(publicKeyEncoded), 0);
+		ECPublicKey deviceKey = Curve.decodePoint(Base64.decode(publicKeyEncoded), 0);
 
-        return new DeviceLinkInfo(deviceIdentifier, deviceKey);
-    }
+		return new DeviceLinkInfo(deviceIdentifier, deviceKey);
+	}
 
-    private static Map<String, String> getQueryMap(String query) {
-        String[] params = query.split("&");
-        Map<String, String> map = new HashMap<>();
-        for (String param : params) {
-            final String[] paramParts = param.split("=");
-            String name = URLDecoder.decode(paramParts[0], StandardCharsets.UTF_8);
-            String value = URLDecoder.decode(paramParts[1], StandardCharsets.UTF_8);
-            map.put(name, value);
-        }
-        return map;
-    }
+	private static Map<String, String> getQueryMap(String query) {
+		String[] params = query.split("&");
+		Map<String, String> map = new HashMap<>();
+		for (String param : params) {
+			final String[] paramParts = param.split("=");
+			String name = URLDecoder.decode(paramParts[0], StandardCharsets.UTF_8);
+			String value = URLDecoder.decode(paramParts[1], StandardCharsets.UTF_8);
+			map.put(name, value);
+		}
+		return map;
+	}
 
-    public DeviceLinkInfo(final String deviceIdentifier, final ECPublicKey deviceKey) {
-        this.deviceIdentifier = deviceIdentifier;
-        this.deviceKey = deviceKey;
-    }
+	public DeviceLinkInfo(final String deviceIdentifier, final ECPublicKey deviceKey) {
+		this.deviceIdentifier = deviceIdentifier;
+		this.deviceKey = deviceKey;
+	}
 
-    public String createDeviceLinkUri() {
-        return "tsdevice:/?uuid="
-                + URLEncoder.encode(deviceIdentifier, StandardCharsets.UTF_8)
-                + "&pub_key="
-                + URLEncoder.encode(Base64.encodeBytesWithoutPadding(deviceKey.serialize()), StandardCharsets.UTF_8);
-    }
+	public String createDeviceLinkUri() {
+		return "tsdevice:/?uuid=" + URLEncoder.encode(deviceIdentifier, StandardCharsets.UTF_8) + "&pub_key="
+				+ URLEncoder.encode(Base64.encodeBytesWithoutPadding(deviceKey.serialize()), StandardCharsets.UTF_8);
+	}
 }

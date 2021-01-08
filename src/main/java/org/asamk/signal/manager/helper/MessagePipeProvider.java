@@ -4,5 +4,5 @@ import org.whispersystems.signalservice.api.SignalServiceMessagePipe;
 
 public interface MessagePipeProvider {
 
-    SignalServiceMessagePipe getMessagePipe(boolean unidentified);
+	SignalServiceMessagePipe getMessagePipe(boolean unidentified);
 }

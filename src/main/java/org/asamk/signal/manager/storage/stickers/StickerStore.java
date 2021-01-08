@@ -20,55 +20,53 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class StickerStore {
 
-    private static final ObjectMapper jsonProcessor = new ObjectMapper();
+	private static final ObjectMapper jsonProcessor = new ObjectMapper();
 
-    @JsonSerialize(using = StickersSerializer.class)
-    @JsonDeserialize(using = StickersDeserializer.class)
-    private final Map<byte[], Sticker> stickers = new HashMap<>();
+	@JsonSerialize(using = StickersSerializer.class)
+	@JsonDeserialize(using = StickersDeserializer.class)
+	private final Map<byte[], Sticker> stickers = new HashMap<>();
 
-    public Sticker getSticker(byte[] packId) {
-        return stickers.get(packId);
-    }
+	public Sticker getSticker(byte[] packId) {
+		return stickers.get(packId);
+	}
 
-    public void updateSticker(Sticker sticker) {
-        stickers.put(sticker.getPackId(), sticker);
-    }
+	public void updateSticker(Sticker sticker) {
+		stickers.put(sticker.getPackId(), sticker);
+	}
 
-    private static class StickersSerializer extends JsonSerializer<Map<byte[], Sticker>> {
+	private static class StickersSerializer extends JsonSerializer<Map<byte[], Sticker>> {
 
-        @Override
-        public void serialize(
-                final Map<byte[], Sticker> value, final JsonGenerator jgen, final SerializerProvider provider
-        ) throws IOException {
-            final Collection<Sticker> stickers = value.values();
-            jgen.writeStartArray(stickers.size());
-            for (Sticker sticker : stickers) {
-                jgen.writeStartObject();
-                jgen.writeStringField("packId", Base64.encodeBytes(sticker.getPackId()));
-                jgen.writeStringField("packKey", Base64.encodeBytes(sticker.getPackKey()));
-                jgen.writeBooleanField("installed", sticker.isInstalled());
-                jgen.writeEndObject();
-            }
-            jgen.writeEndArray();
-        }
-    }
+		@Override
+		public void serialize(final Map<byte[], Sticker> value, final JsonGenerator jgen,
+				final SerializerProvider provider) throws IOException {
+			final Collection<Sticker> stickers = value.values();
+			jgen.writeStartArray(stickers.size());
+			for (Sticker sticker : stickers) {
+				jgen.writeStartObject();
+				jgen.writeStringField("packId", Base64.encodeBytes(sticker.getPackId()));
+				jgen.writeStringField("packKey", Base64.encodeBytes(sticker.getPackKey()));
+				jgen.writeBooleanField("installed", sticker.isInstalled());
+				jgen.writeEndObject();
+			}
+			jgen.writeEndArray();
+		}
+	}
 
-    private static class StickersDeserializer extends JsonDeserializer<Map<byte[], Sticker>> {
+	private static class StickersDeserializer extends JsonDeserializer<Map<byte[], Sticker>> {
 
-        @Override
-        public Map<byte[], Sticker> deserialize(
-                JsonParser jsonParser, DeserializationContext deserializationContext
-        ) throws IOException {
-            Map<byte[], Sticker> stickers = new HashMap<>();
-            JsonNode node = jsonParser.getCodec().readTree(jsonParser);
-            for (JsonNode n : node) {
-                byte[] packId = Base64.decode(n.get("packId").asText());
-                byte[] packKey = Base64.decode(n.get("packKey").asText());
-                boolean installed = n.get("installed").asBoolean(false);
-                stickers.put(packId, new Sticker(packId, packKey, installed));
-            }
+		@Override
+		public Map<byte[], Sticker> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+				throws IOException {
+			Map<byte[], Sticker> stickers = new HashMap<>();
+			JsonNode node = jsonParser.getCodec().readTree(jsonParser);
+			for (JsonNode n : node) {
+				byte[] packId = Base64.decode(n.get("packId").asText());
+				byte[] packKey = Base64.decode(n.get("packKey").asText());
+				boolean installed = n.get("installed").asBoolean(false);
+				stickers.put(packId, new Sticker(packId, packKey, installed));
+			}
 
-            return stickers;
-        }
-    }
+			return stickers;
+		}
+	}
 }

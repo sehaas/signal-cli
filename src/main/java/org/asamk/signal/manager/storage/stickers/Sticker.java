@@ -2,34 +2,34 @@ package org.asamk.signal.manager.storage.stickers;
 
 public class Sticker {
 
-    private final byte[] packId;
-    private final byte[] packKey;
-    private boolean installed;
+	private final byte[] packId;
+	private final byte[] packKey;
+	private boolean installed;
 
-    public Sticker(final byte[] packId, final byte[] packKey) {
-        this.packId = packId;
-        this.packKey = packKey;
-    }
+	public Sticker(final byte[] packId, final byte[] packKey) {
+		this.packId = packId;
+		this.packKey = packKey;
+	}
 
-    public Sticker(final byte[] packId, final byte[] packKey, final boolean installed) {
-        this.packId = packId;
-        this.packKey = packKey;
-        this.installed = installed;
-    }
+	public Sticker(final byte[] packId, final byte[] packKey, final boolean installed) {
+		this.packId = packId;
+		this.packKey = packKey;
+		this.installed = installed;
+	}
 
-    public byte[] getPackId() {
-        return packId;
-    }
+	public byte[] getPackId() {
+		return packId;
+	}
 
-    public byte[] getPackKey() {
-        return packKey;
-    }
+	public byte[] getPackKey() {
+		return packKey;
+	}
 
-    public boolean isInstalled() {
-        return installed;
-    }
+	public boolean isInstalled() {
+		return installed;
+	}
 
-    public void setInstalled(final boolean installed) {
-        this.installed = installed;
-    }
+	public void setInstalled(final boolean installed) {
+		this.installed = installed;
+	}
 }

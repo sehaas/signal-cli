@@ -6,5 +6,5 @@ import net.sourceforge.argparse4j.inf.Namespace;
 
 public interface LocalCommand extends Command {
 
-    int handleCommand(Namespace ns, Manager m);
+	int handleCommand(Namespace ns, Manager m);
 }

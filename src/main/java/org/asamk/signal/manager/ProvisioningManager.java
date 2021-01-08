@@ -38,96 +38,84 @@ import org.whispersystems.signalservice.internal.util.DynamicCredentialsProvider
 
 public class ProvisioningManager {
 
-    private final PathConfig pathConfig;
-    private final SignalServiceConfiguration serviceConfiguration;
-    private final String userAgent;
+	private final PathConfig pathConfig;
+	private final SignalServiceConfiguration serviceConfiguration;
+	private final String userAgent;
 
-    private final SignalServiceAccountManager accountManager;
-    private final IdentityKeyPair identityKey;
-    private final int registrationId;
-    private final String password;
+	private final SignalServiceAccountManager accountManager;
+	private final IdentityKeyPair identityKey;
+	private final int registrationId;
+	private final String password;
 
-    public ProvisioningManager(File settingsPath, SignalServiceConfiguration serviceConfiguration, String userAgent) {
-        this.pathConfig = PathConfig.createDefault(settingsPath);
-        this.serviceConfiguration = serviceConfiguration;
-        this.userAgent = userAgent;
+	public ProvisioningManager(File settingsPath, SignalServiceConfiguration serviceConfiguration, String userAgent) {
+		this.pathConfig = PathConfig.createDefault(settingsPath);
+		this.serviceConfiguration = serviceConfiguration;
+		this.userAgent = userAgent;
 
-        identityKey = KeyUtils.generateIdentityKeyPair();
-        registrationId = KeyHelper.generateRegistrationId(false);
-        password = KeyUtils.createPassword();
-        final SleepTimer timer = new UptimeSleepTimer();
-        GroupsV2Operations groupsV2Operations;
-        try {
-            groupsV2Operations = new GroupsV2Operations(ClientZkOperations.create(serviceConfiguration));
-        } catch (Throwable ignored) {
-            groupsV2Operations = null;
-        }
-        accountManager = new SignalServiceAccountManager(serviceConfiguration,
-                new DynamicCredentialsProvider(null, null, password, null, SignalServiceAddress.DEFAULT_DEVICE_ID),
-                userAgent,
-                groupsV2Operations,
-                timer);
-    }
+		identityKey = KeyUtils.generateIdentityKeyPair();
+		registrationId = KeyHelper.generateRegistrationId(false);
+		password = KeyUtils.createPassword();
+		final SleepTimer timer = new UptimeSleepTimer();
+		GroupsV2Operations groupsV2Operations;
+		try {
+			groupsV2Operations = new GroupsV2Operations(ClientZkOperations.create(serviceConfiguration));
+		} catch (Throwable ignored) {
+			groupsV2Operations = null;
+		}
+		accountManager = new SignalServiceAccountManager(serviceConfiguration,
+				new DynamicCredentialsProvider(null, null, password, null, SignalServiceAddress.DEFAULT_DEVICE_ID),
+				userAgent, groupsV2Operations, timer);
+	}
 
-    public String getDeviceLinkUri() throws TimeoutException, IOException {
-        String deviceUuid = accountManager.getNewDeviceUuid();
+	public String getDeviceLinkUri() throws TimeoutException, IOException {
+		String deviceUuid = accountManager.getNewDeviceUuid();
 
-        return new DeviceLinkInfo(deviceUuid, identityKey.getPublicKey().getPublicKey()).createDeviceLinkUri();
-    }
+		return new DeviceLinkInfo(deviceUuid, identityKey.getPublicKey().getPublicKey()).createDeviceLinkUri();
+	}
 
-    public String finishDeviceLink(String deviceName) throws IOException, InvalidKeyException, TimeoutException, UserAlreadyExists {
-        String signalingKey = KeyUtils.createSignalingKey();
-        SignalServiceAccountManager.NewDeviceRegistrationReturn ret = accountManager.finishNewDeviceRegistration(
-                identityKey,
-                signalingKey,
-                false,
-                true,
-                registrationId,
-                deviceName);
+	public String finishDeviceLink(String deviceName)
+			throws IOException, InvalidKeyException, TimeoutException, UserAlreadyExists {
+		String signalingKey = KeyUtils.createSignalingKey();
+		SignalServiceAccountManager.NewDeviceRegistrationReturn ret = accountManager
+				.finishNewDeviceRegistration(identityKey, signalingKey, false, true, registrationId, deviceName);
 
-        String username = ret.getNumber();
-        // TODO do this check before actually registering
-        if (SignalAccount.userExists(pathConfig.getDataPath(), username)) {
-            throw new UserAlreadyExists(username, SignalAccount.getFileName(pathConfig.getDataPath(), username));
-        }
+		String username = ret.getNumber();
+		// TODO do this check before actually registering
+		if (SignalAccount.userExists(pathConfig.getDataPath(), username)) {
+			throw new UserAlreadyExists(username, SignalAccount.getFileName(pathConfig.getDataPath(), username));
+		}
 
-        // Create new account with the synced identity
-        byte[] profileKeyBytes = ret.getProfileKey();
-        ProfileKey profileKey;
-        if (profileKeyBytes == null) {
-            profileKey = KeyUtils.createProfileKey();
-        } else {
-            try {
-                profileKey = new ProfileKey(profileKeyBytes);
-            } catch (InvalidInputException e) {
-                throw new IOException("Received invalid profileKey", e);
-            }
-        }
+		// Create new account with the synced identity
+		byte[] profileKeyBytes = ret.getProfileKey();
+		ProfileKey profileKey;
+		if (profileKeyBytes == null) {
+			profileKey = KeyUtils.createProfileKey();
+		} else {
+			try {
+				profileKey = new ProfileKey(profileKeyBytes);
+			} catch (InvalidInputException e) {
+				throw new IOException("Received invalid profileKey", e);
+			}
+		}
 
-        try (SignalAccount account = SignalAccount.createLinkedAccount(pathConfig.getDataPath(),
-                username,
-                ret.getUuid(),
-                password,
-                ret.getDeviceId(),
-                ret.getIdentity(),
-                registrationId,
-                signalingKey,
-                profileKey)) {
-            account.save();
+		try (SignalAccount account = SignalAccount.createLinkedAccount(pathConfig.getDataPath(), username,
+				ret.getUuid(), password, ret.getDeviceId(), ret.getIdentity(), registrationId, signalingKey,
+				profileKey)) {
+			account.save();
 
-            try (Manager m = new Manager(account, pathConfig, serviceConfiguration, userAgent)) {
+			try (Manager m = new Manager(account, pathConfig, serviceConfiguration, userAgent)) {
 
-                m.refreshPreKeys();
+				m.refreshPreKeys();
 
-                m.requestSyncGroups();
-                m.requestSyncContacts();
-                m.requestSyncBlocked();
-                m.requestSyncConfiguration();
+				m.requestSyncGroups();
+				m.requestSyncContacts();
+				m.requestSyncBlocked();
+				m.requestSyncConfiguration();
 
-                m.saveAccount();
-            }
-        }
+				m.saveAccount();
+			}
+		}
 
-        return username;
-    }
+		return username;
+	}
 }

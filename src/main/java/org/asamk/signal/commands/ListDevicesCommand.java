@@ -12,31 +12,29 @@ import net.sourceforge.argparse4j.inf.Subparser;
 
 public class ListDevicesCommand implements LocalCommand {
 
-    @Override
-    public void attachToSubparser(final Subparser subparser) {
-    }
+	@Override
+	public void attachToSubparser(final Subparser subparser) {
+	}
 
-    @Override
-    public int handleCommand(final Namespace ns, final Manager m) {
-        if (!m.isRegistered()) {
-            System.err.println("User is not registered.");
-            return 1;
-        }
-        try {
-            List<DeviceInfo> devices = m.getLinkedDevices();
-            for (DeviceInfo d : devices) {
-                System.out.println("Device "
-                        + d.getId()
-                        + (d.getId() == m.getDeviceId() ? " (this device)" : "")
-                        + ":");
-                System.out.println(" Name: " + d.getName());
-                System.out.println(" Created: " + DateUtils.formatTimestamp(d.getCreated()));
-                System.out.println(" Last seen: " + DateUtils.formatTimestamp(d.getLastSeen()));
-            }
-            return 0;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return 3;
-        }
-    }
+	@Override
+	public int handleCommand(final Namespace ns, final Manager m) {
+		if (!m.isRegistered()) {
+			System.err.println("User is not registered.");
+			return 1;
+		}
+		try {
+			List<DeviceInfo> devices = m.getLinkedDevices();
+			for (DeviceInfo d : devices) {
+				System.out
+						.println("Device " + d.getId() + (d.getId() == m.getDeviceId() ? " (this device)" : "") + ":");
+				System.out.println(" Name: " + d.getName());
+				System.out.println(" Created: " + DateUtils.formatTimestamp(d.getCreated()));
+				System.out.println(" Last seen: " + DateUtils.formatTimestamp(d.getLastSeen()));
+			}
+			return 0;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return 3;
+		}
+	}
 }

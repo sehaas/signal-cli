@@ -23,103 +23,101 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 class JsonSignedPreKeyStore implements SignedPreKeyStore {
 
-    final static Logger logger = LoggerFactory.getLogger(JsonSignedPreKeyStore.class);
+	final static Logger logger = LoggerFactory.getLogger(JsonSignedPreKeyStore.class);
 
-    private final Map<Integer, byte[]> store = new HashMap<>();
+	private final Map<Integer, byte[]> store = new HashMap<>();
 
-    public JsonSignedPreKeyStore() {
+	public JsonSignedPreKeyStore() {
 
-    }
+	}
 
-    private void addSignedPreKeys(Map<Integer, byte[]> preKeys) {
-        store.putAll(preKeys);
-    }
+	private void addSignedPreKeys(Map<Integer, byte[]> preKeys) {
+		store.putAll(preKeys);
+	}
 
-    @Override
-    public SignedPreKeyRecord loadSignedPreKey(int signedPreKeyId) throws InvalidKeyIdException {
-        try {
-            if (!store.containsKey(signedPreKeyId)) {
-                throw new InvalidKeyIdException("No such signedprekeyrecord! " + signedPreKeyId);
-            }
+	@Override
+	public SignedPreKeyRecord loadSignedPreKey(int signedPreKeyId) throws InvalidKeyIdException {
+		try {
+			if (!store.containsKey(signedPreKeyId)) {
+				throw new InvalidKeyIdException("No such signedprekeyrecord! " + signedPreKeyId);
+			}
 
-            return new SignedPreKeyRecord(store.get(signedPreKeyId));
-        } catch (IOException e) {
-            throw new AssertionError(e);
-        }
-    }
+			return new SignedPreKeyRecord(store.get(signedPreKeyId));
+		} catch (IOException e) {
+			throw new AssertionError(e);
+		}
+	}
 
-    @Override
-    public List<SignedPreKeyRecord> loadSignedPreKeys() {
-        try {
-            List<SignedPreKeyRecord> results = new LinkedList<>();
+	@Override
+	public List<SignedPreKeyRecord> loadSignedPreKeys() {
+		try {
+			List<SignedPreKeyRecord> results = new LinkedList<>();
 
-            for (byte[] serialized : store.values()) {
-                results.add(new SignedPreKeyRecord(serialized));
-            }
+			for (byte[] serialized : store.values()) {
+				results.add(new SignedPreKeyRecord(serialized));
+			}
 
-            return results;
-        } catch (IOException e) {
-            throw new AssertionError(e);
-        }
-    }
+			return results;
+		} catch (IOException e) {
+			throw new AssertionError(e);
+		}
+	}
 
-    @Override
-    public void storeSignedPreKey(int signedPreKeyId, SignedPreKeyRecord record) {
-        store.put(signedPreKeyId, record.serialize());
-    }
+	@Override
+	public void storeSignedPreKey(int signedPreKeyId, SignedPreKeyRecord record) {
+		store.put(signedPreKeyId, record.serialize());
+	}
 
-    @Override
-    public boolean containsSignedPreKey(int signedPreKeyId) {
-        return store.containsKey(signedPreKeyId);
-    }
+	@Override
+	public boolean containsSignedPreKey(int signedPreKeyId) {
+		return store.containsKey(signedPreKeyId);
+	}
 
-    @Override
-    public void removeSignedPreKey(int signedPreKeyId) {
-        store.remove(signedPreKeyId);
-    }
+	@Override
+	public void removeSignedPreKey(int signedPreKeyId) {
+		store.remove(signedPreKeyId);
+	}
 
-    public static class JsonSignedPreKeyStoreDeserializer extends JsonDeserializer<JsonSignedPreKeyStore> {
+	public static class JsonSignedPreKeyStoreDeserializer extends JsonDeserializer<JsonSignedPreKeyStore> {
 
-        @Override
-        public JsonSignedPreKeyStore deserialize(
-                JsonParser jsonParser, DeserializationContext deserializationContext
-        ) throws IOException {
-            JsonNode node = jsonParser.getCodec().readTree(jsonParser);
+		@Override
+		public JsonSignedPreKeyStore deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+				throws IOException {
+			JsonNode node = jsonParser.getCodec().readTree(jsonParser);
 
-            Map<Integer, byte[]> preKeyMap = new HashMap<>();
-            if (node.isArray()) {
-                for (JsonNode preKey : node) {
-                    Integer preKeyId = preKey.get("id").asInt();
-                    try {
-                        preKeyMap.put(preKeyId, Base64.decode(preKey.get("record").asText()));
-                    } catch (IOException e) {
-                        logger.warn("Error while decoding prekey for {}: {}", preKeyId, e.getMessage());
-                    }
-                }
-            }
+			Map<Integer, byte[]> preKeyMap = new HashMap<>();
+			if (node.isArray()) {
+				for (JsonNode preKey : node) {
+					Integer preKeyId = preKey.get("id").asInt();
+					try {
+						preKeyMap.put(preKeyId, Base64.decode(preKey.get("record").asText()));
+					} catch (IOException e) {
+						logger.warn("Error while decoding prekey for {}: {}", preKeyId, e.getMessage());
+					}
+				}
+			}
 
-            JsonSignedPreKeyStore keyStore = new JsonSignedPreKeyStore();
-            keyStore.addSignedPreKeys(preKeyMap);
+			JsonSignedPreKeyStore keyStore = new JsonSignedPreKeyStore();
+			keyStore.addSignedPreKeys(preKeyMap);
 
-            return keyStore;
+			return keyStore;
 
-        }
-    }
+		}
+	}
 
-    public static class JsonSignedPreKeyStoreSerializer extends JsonSerializer<JsonSignedPreKeyStore> {
+	public static class JsonSignedPreKeyStoreSerializer extends JsonSerializer<JsonSignedPreKeyStore> {
 
-        @Override
-        public void serialize(
-                JsonSignedPreKeyStore jsonPreKeyStore, JsonGenerator json, SerializerProvider serializerProvider
-        ) throws IOException {
-            json.writeStartArray();
-            for (Map.Entry<Integer, byte[]> signedPreKey : jsonPreKeyStore.store.entrySet()) {
-                json.writeStartObject();
-                json.writeNumberField("id", signedPreKey.getKey());
-                json.writeStringField("record", Base64.encodeBytes(signedPreKey.getValue()));
-                json.writeEndObject();
-            }
-            json.writeEndArray();
-        }
-    }
+		@Override
+		public void serialize(JsonSignedPreKeyStore jsonPreKeyStore, JsonGenerator json,
+				SerializerProvider serializerProvider) throws IOException {
+			json.writeStartArray();
+			for (Map.Entry<Integer, byte[]> signedPreKey : jsonPreKeyStore.store.entrySet()) {
+				json.writeStartObject();
+				json.writeNumberField("id", signedPreKey.getKey());
+				json.writeStringField("record", Base64.encodeBytes(signedPreKey.getValue()));
+				json.writeEndObject();
+			}
+			json.writeEndArray();
+		}
+	}
 }

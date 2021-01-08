@@ -6,5 +6,5 @@ import net.sourceforge.argparse4j.inf.Namespace;
 
 public interface DbusCommand extends Command {
 
-    int handleCommand(Namespace ns, Signal signal);
+	int handleCommand(Namespace ns, Signal signal);
 }

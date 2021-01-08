@@ -4,5 +4,5 @@ import org.whispersystems.signalservice.api.SignalServiceMessageReceiver;
 
 public interface MessageReceiverProvider {
 
-    SignalServiceMessageReceiver getMessageReceiver();
+	SignalServiceMessageReceiver getMessageReceiver();
 }

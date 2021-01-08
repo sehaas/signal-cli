@@ -11,43 +11,43 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ContactInfo {
 
-    @JsonProperty
-    public String name;
+	@JsonProperty
+	public String name;
 
-    @JsonProperty
-    public String number;
+	@JsonProperty
+	public String number;
 
-    @JsonProperty
-    public UUID uuid;
+	@JsonProperty
+	public UUID uuid;
 
-    @JsonProperty
-    public String color;
+	@JsonProperty
+	public String color;
 
-    @JsonProperty(defaultValue = "0")
-    public int messageExpirationTime;
+	@JsonProperty(defaultValue = "0")
+	public int messageExpirationTime;
 
-    @JsonProperty(access = WRITE_ONLY)
-    public String profileKey;
+	@JsonProperty(access = WRITE_ONLY)
+	public String profileKey;
 
-    @JsonProperty(defaultValue = "false")
-    public boolean blocked;
+	@JsonProperty(defaultValue = "false")
+	public boolean blocked;
 
-    @JsonProperty
-    public Integer inboxPosition;
+	@JsonProperty
+	public Integer inboxPosition;
 
-    @JsonProperty(defaultValue = "false")
-    public boolean archived;
+	@JsonProperty(defaultValue = "false")
+	public boolean archived;
 
-    public ContactInfo() {
-    }
+	public ContactInfo() {
+	}
 
-    public ContactInfo(SignalServiceAddress address) {
-        this.number = address.getNumber().orNull();
-        this.uuid = address.getUuid().orNull();
-    }
+	public ContactInfo(SignalServiceAddress address) {
+		this.number = address.getNumber().orNull();
+		this.uuid = address.getUuid().orNull();
+	}
 
-    @JsonIgnore
-    public SignalServiceAddress getAddress() {
-        return new SignalServiceAddress(uuid, number);
-    }
+	@JsonIgnore
+	public SignalServiceAddress getAddress() {
+		return new SignalServiceAddress(uuid, number);
+	}
 }

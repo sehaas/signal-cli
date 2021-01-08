@@ -14,31 +14,30 @@ import net.sourceforge.argparse4j.inf.Subparser;
 
 public class AddDeviceCommand implements LocalCommand {
 
-    @Override
-    public void attachToSubparser(final Subparser subparser) {
-        subparser.addArgument("--uri")
-                .required(true)
-                .help("Specify the uri contained in the QR code shown by the new device.");
-    }
+	@Override
+	public void attachToSubparser(final Subparser subparser) {
+		subparser.addArgument("--uri").required(true)
+				.help("Specify the uri contained in the QR code shown by the new device.");
+	}
 
-    @Override
-    public int handleCommand(final Namespace ns, final Manager m) {
-        if (!m.isRegistered()) {
-            System.err.println("User is not registered.");
-            return 1;
-        }
-        try {
-            m.addDeviceLink(new URI(ns.getString("uri")));
-            return 0;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return 3;
-        } catch (InvalidKeyException | URISyntaxException e) {
-            e.printStackTrace();
-            return 2;
-        } catch (AssertionError e) {
-            handleAssertionError(e);
-            return 1;
-        }
-    }
+	@Override
+	public int handleCommand(final Namespace ns, final Manager m) {
+		if (!m.isRegistered()) {
+			System.err.println("User is not registered.");
+			return 1;
+		}
+		try {
+			m.addDeviceLink(new URI(ns.getString("uri")));
+			return 0;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return 3;
+		} catch (InvalidKeyException | URISyntaxException e) {
+			e.printStackTrace();
+			return 2;
+		} catch (AssertionError e) {
+			handleAssertionError(e);
+			return 1;
+		}
+	}
 }

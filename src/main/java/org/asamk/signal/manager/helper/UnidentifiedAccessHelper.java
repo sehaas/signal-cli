@@ -16,90 +16,86 @@ import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
 public class UnidentifiedAccessHelper {
 
-    private final SelfProfileKeyProvider selfProfileKeyProvider;
+	private final SelfProfileKeyProvider selfProfileKeyProvider;
 
-    private final ProfileKeyProvider profileKeyProvider;
+	private final ProfileKeyProvider profileKeyProvider;
 
-    private final ProfileProvider profileProvider;
+	private final ProfileProvider profileProvider;
 
-    private final UnidentifiedAccessSenderCertificateProvider senderCertificateProvider;
+	private final UnidentifiedAccessSenderCertificateProvider senderCertificateProvider;
 
-    public UnidentifiedAccessHelper(
-            final SelfProfileKeyProvider selfProfileKeyProvider,
-            final ProfileKeyProvider profileKeyProvider,
-            final ProfileProvider profileProvider,
-            final UnidentifiedAccessSenderCertificateProvider senderCertificateProvider
-    ) {
-        this.selfProfileKeyProvider = selfProfileKeyProvider;
-        this.profileKeyProvider = profileKeyProvider;
-        this.profileProvider = profileProvider;
-        this.senderCertificateProvider = senderCertificateProvider;
-    }
+	public UnidentifiedAccessHelper(final SelfProfileKeyProvider selfProfileKeyProvider,
+			final ProfileKeyProvider profileKeyProvider, final ProfileProvider profileProvider,
+			final UnidentifiedAccessSenderCertificateProvider senderCertificateProvider) {
+		this.selfProfileKeyProvider = selfProfileKeyProvider;
+		this.profileKeyProvider = profileKeyProvider;
+		this.profileProvider = profileProvider;
+		this.senderCertificateProvider = senderCertificateProvider;
+	}
 
-    public byte[] getSelfUnidentifiedAccessKey() {
-        return UnidentifiedAccess.deriveAccessKeyFrom(selfProfileKeyProvider.getProfileKey());
-    }
+	public byte[] getSelfUnidentifiedAccessKey() {
+		return UnidentifiedAccess.deriveAccessKeyFrom(selfProfileKeyProvider.getProfileKey());
+	}
 
-    public byte[] getTargetUnidentifiedAccessKey(SignalServiceAddress recipient) {
-        ProfileKey theirProfileKey = profileKeyProvider.getProfileKey(recipient);
-        if (theirProfileKey == null) {
-            return null;
-        }
+	public byte[] getTargetUnidentifiedAccessKey(SignalServiceAddress recipient) {
+		ProfileKey theirProfileKey = profileKeyProvider.getProfileKey(recipient);
+		if (theirProfileKey == null) {
+			return null;
+		}
 
-        SignalProfile targetProfile = profileProvider.getProfile(recipient);
-        if (targetProfile == null || targetProfile.getUnidentifiedAccess() == null) {
-            return null;
-        }
+		SignalProfile targetProfile = profileProvider.getProfile(recipient);
+		if (targetProfile == null || targetProfile.getUnidentifiedAccess() == null) {
+			return null;
+		}
 
-        if (targetProfile.isUnrestrictedUnidentifiedAccess()) {
-            return createUnrestrictedUnidentifiedAccess();
-        }
+		if (targetProfile.isUnrestrictedUnidentifiedAccess()) {
+			return createUnrestrictedUnidentifiedAccess();
+		}
 
-        return UnidentifiedAccess.deriveAccessKeyFrom(theirProfileKey);
-    }
+		return UnidentifiedAccess.deriveAccessKeyFrom(theirProfileKey);
+	}
 
-    public Optional<UnidentifiedAccessPair> getAccessForSync() {
-        byte[] selfUnidentifiedAccessKey = getSelfUnidentifiedAccessKey();
-        byte[] selfUnidentifiedAccessCertificate = senderCertificateProvider.getSenderCertificate();
+	public Optional<UnidentifiedAccessPair> getAccessForSync() {
+		byte[] selfUnidentifiedAccessKey = getSelfUnidentifiedAccessKey();
+		byte[] selfUnidentifiedAccessCertificate = senderCertificateProvider.getSenderCertificate();
 
-        if (selfUnidentifiedAccessKey == null || selfUnidentifiedAccessCertificate == null) {
-            return Optional.absent();
-        }
+		if (selfUnidentifiedAccessKey == null || selfUnidentifiedAccessCertificate == null) {
+			return Optional.absent();
+		}
 
-        try {
-            return Optional.of(new UnidentifiedAccessPair(new UnidentifiedAccess(selfUnidentifiedAccessKey,
-                    selfUnidentifiedAccessCertificate),
-                    new UnidentifiedAccess(selfUnidentifiedAccessKey, selfUnidentifiedAccessCertificate)));
-        } catch (InvalidCertificateException e) {
-            return Optional.absent();
-        }
-    }
+		try {
+			return Optional.of(new UnidentifiedAccessPair(
+					new UnidentifiedAccess(selfUnidentifiedAccessKey, selfUnidentifiedAccessCertificate),
+					new UnidentifiedAccess(selfUnidentifiedAccessKey, selfUnidentifiedAccessCertificate)));
+		} catch (InvalidCertificateException e) {
+			return Optional.absent();
+		}
+	}
 
-    public List<Optional<UnidentifiedAccessPair>> getAccessFor(Collection<SignalServiceAddress> recipients) {
-        return recipients.stream().map(this::getAccessFor).collect(Collectors.toList());
-    }
+	public List<Optional<UnidentifiedAccessPair>> getAccessFor(Collection<SignalServiceAddress> recipients) {
+		return recipients.stream().map(this::getAccessFor).collect(Collectors.toList());
+	}
 
-    public Optional<UnidentifiedAccessPair> getAccessFor(SignalServiceAddress recipient) {
-        byte[] recipientUnidentifiedAccessKey = getTargetUnidentifiedAccessKey(recipient);
-        byte[] selfUnidentifiedAccessKey = getSelfUnidentifiedAccessKey();
-        byte[] selfUnidentifiedAccessCertificate = senderCertificateProvider.getSenderCertificate();
+	public Optional<UnidentifiedAccessPair> getAccessFor(SignalServiceAddress recipient) {
+		byte[] recipientUnidentifiedAccessKey = getTargetUnidentifiedAccessKey(recipient);
+		byte[] selfUnidentifiedAccessKey = getSelfUnidentifiedAccessKey();
+		byte[] selfUnidentifiedAccessCertificate = senderCertificateProvider.getSenderCertificate();
 
-        if (recipientUnidentifiedAccessKey == null
-                || selfUnidentifiedAccessKey == null
-                || selfUnidentifiedAccessCertificate == null) {
-            return Optional.absent();
-        }
+		if (recipientUnidentifiedAccessKey == null || selfUnidentifiedAccessKey == null
+				|| selfUnidentifiedAccessCertificate == null) {
+			return Optional.absent();
+		}
 
-        try {
-            return Optional.of(new UnidentifiedAccessPair(new UnidentifiedAccess(recipientUnidentifiedAccessKey,
-                    selfUnidentifiedAccessCertificate),
-                    new UnidentifiedAccess(selfUnidentifiedAccessKey, selfUnidentifiedAccessCertificate)));
-        } catch (InvalidCertificateException e) {
-            return Optional.absent();
-        }
-    }
+		try {
+			return Optional.of(new UnidentifiedAccessPair(
+					new UnidentifiedAccess(recipientUnidentifiedAccessKey, selfUnidentifiedAccessCertificate),
+					new UnidentifiedAccess(selfUnidentifiedAccessKey, selfUnidentifiedAccessCertificate)));
+		} catch (InvalidCertificateException e) {
+			return Optional.absent();
+		}
+	}
 
-    private static byte[] createUnrestrictedUnidentifiedAccess() {
-        return getSecretBytes(16);
-    }
+	private static byte[] createUnrestrictedUnidentifiedAccess() {
+		return getSecretBytes(16);
+	}
 }

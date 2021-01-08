@@ -6,24 +6,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 class JsonStickerPack {
 
-    @JsonProperty
-    public String title;
+	@JsonProperty
+	public String title;
 
-    @JsonProperty
-    public String author;
+	@JsonProperty
+	public String author;
 
-    @JsonProperty
-    public JsonSticker cover;
+	@JsonProperty
+	public JsonSticker cover;
 
-    @JsonProperty
-    public List<JsonSticker> stickers;
+	@JsonProperty
+	public List<JsonSticker> stickers;
 
-    public static class JsonSticker {
+	public static class JsonSticker {
 
-        @JsonProperty
-        public String emoji;
+		@JsonProperty
+		public String emoji;
 
-        @JsonProperty
-        public String file;
-    }
+		@JsonProperty
+		public String file;
+	}
 }

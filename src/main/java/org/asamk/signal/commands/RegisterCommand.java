@@ -11,28 +11,27 @@ import net.sourceforge.argparse4j.inf.Subparser;
 
 public class RegisterCommand implements LocalCommand {
 
-    @Override
-    public void attachToSubparser(final Subparser subparser) {
-        subparser.addArgument("-v", "--voice")
-                .help("The verification should be done over voice, not sms.")
-                .action(Arguments.storeTrue());
-        subparser.addArgument("--captcha")
-                .help("The captcha token, required if registration failed with a captcha required error.");
-    }
+	@Override
+	public void attachToSubparser(final Subparser subparser) {
+		subparser.addArgument("-v", "--voice").help("The verification should be done over voice, not sms.")
+				.action(Arguments.storeTrue());
+		subparser.addArgument("--captcha")
+				.help("The captcha token, required if registration failed with a captcha required error.");
+	}
 
-    @Override
-    public int handleCommand(final Namespace ns, final Manager m) {
-        try {
-            final boolean voiceVerification = ns.getBoolean("voice");
-            final String captcha = ns.getString("captcha");
-            m.register(voiceVerification, captcha);
-            return 0;
-        } catch (CaptchaRequiredException e) {
-            System.err.println("Captcha invalid or required for verification (" + e.getMessage() + ")");
-            return 1;
-        } catch (IOException e) {
-            System.err.println("Request verify error: " + e.getMessage());
-            return 3;
-        }
-    }
+	@Override
+	public int handleCommand(final Namespace ns, final Manager m) {
+		try {
+			final boolean voiceVerification = ns.getBoolean("voice");
+			final String captcha = ns.getString("captcha");
+			m.register(voiceVerification, captcha);
+			return 0;
+		} catch (CaptchaRequiredException e) {
+			System.err.println("Captcha invalid or required for verification (" + e.getMessage() + ")");
+			return 1;
+		} catch (IOException e) {
+			System.err.println("Request verify error: " + e.getMessage());
+			return 3;
+		}
+	}
 }

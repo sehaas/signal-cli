@@ -7,5 +7,5 @@ import org.whispersystems.signalservice.api.groupsv2.GroupsV2AuthorizationString
 
 public interface GroupAuthorizationProvider {
 
-    GroupsV2AuthorizationString getAuthorizationForToday(GroupSecretParams groupSecretParams) throws IOException;
+	GroupsV2AuthorizationString getAuthorizationForToday(GroupSecretParams groupSecretParams) throws IOException;
 }

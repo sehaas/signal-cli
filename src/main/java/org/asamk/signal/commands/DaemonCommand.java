@@ -20,65 +20,58 @@ import net.sourceforge.argparse4j.inf.Subparser;
 
 public class DaemonCommand implements LocalCommand {
 
-    @Override
-    public void attachToSubparser(final Subparser subparser) {
-        subparser.addArgument("--system")
-                .action(Arguments.storeTrue())
-                .help("Use DBus system bus instead of user bus.");
-        subparser.addArgument("--ignore-attachments")
-                .help("Don’t download attachments of received messages.")
-                .action(Arguments.storeTrue());
-        subparser.addArgument("--json")
-                .help("Output received messages in json format, one json object per line.")
-                .action(Arguments.storeTrue());
-    }
+	@Override
+	public void attachToSubparser(final Subparser subparser) {
+		subparser.addArgument("--system").action(Arguments.storeTrue())
+				.help("Use DBus system bus instead of user bus.");
+		subparser.addArgument("--ignore-attachments").help("Don’t download attachments of received messages.")
+				.action(Arguments.storeTrue());
+		subparser.addArgument("--json").help("Output received messages in json format, one json object per line.")
+				.action(Arguments.storeTrue());
+	}
 
-    @Override
-    public int handleCommand(final Namespace ns, final Manager m) {
-        if (!m.isRegistered()) {
-            System.err.println("User is not registered.");
-            return 1;
-        }
-        DBusConnection conn = null;
-        try {
-            try {
-                DBusConnection.DBusBusType busType;
-                if (ns.getBoolean("system")) {
-                    busType = DBusConnection.DBusBusType.SYSTEM;
-                } else {
-                    busType = DBusConnection.DBusBusType.SESSION;
-                }
-                conn = DBusConnection.getConnection(busType);
-                conn.exportObject(SIGNAL_OBJECTPATH, new DbusSignalImpl(m));
-                conn.requestBusName(SIGNAL_BUSNAME);
-            } catch (UnsatisfiedLinkError e) {
-                System.err.println("Missing native library dependency for dbus service: " + e.getMessage());
-                return 1;
-            } catch (DBusException e) {
-                e.printStackTrace();
-                return 2;
-            }
-            boolean ignoreAttachments = ns.getBoolean("ignore_attachments");
-            try {
-                m.receiveMessages(1,
-                        TimeUnit.HOURS,
-                        false,
-                        ignoreAttachments,
-                        ns.getBoolean("json")
-                                ? new JsonDbusReceiveMessageHandler(m, conn, SIGNAL_OBJECTPATH)
-                                : new DbusReceiveMessageHandler(m, conn, SIGNAL_OBJECTPATH));
-                return 0;
-            } catch (IOException e) {
-                System.err.println("Error while receiving messages: " + e.getMessage());
-                return 3;
-            } catch (AssertionError e) {
-                handleAssertionError(e);
-                return 1;
-            }
-        } finally {
-            if (conn != null) {
-                conn.disconnect();
-            }
-        }
-    }
+	@Override
+	public int handleCommand(final Namespace ns, final Manager m) {
+		if (!m.isRegistered()) {
+			System.err.println("User is not registered.");
+			return 1;
+		}
+		DBusConnection conn = null;
+		try {
+			try {
+				DBusConnection.DBusBusType busType;
+				if (ns.getBoolean("system")) {
+					busType = DBusConnection.DBusBusType.SYSTEM;
+				} else {
+					busType = DBusConnection.DBusBusType.SESSION;
+				}
+				conn = DBusConnection.getConnection(busType);
+				conn.exportObject(SIGNAL_OBJECTPATH, new DbusSignalImpl(m));
+				conn.requestBusName(SIGNAL_BUSNAME);
+			} catch (UnsatisfiedLinkError e) {
+				System.err.println("Missing native library dependency for dbus service: " + e.getMessage());
+				return 1;
+			} catch (DBusException e) {
+				e.printStackTrace();
+				return 2;
+			}
+			boolean ignoreAttachments = ns.getBoolean("ignore_attachments");
+			try {
+				m.receiveMessages(1, TimeUnit.HOURS, false, ignoreAttachments,
+						ns.getBoolean("json") ? new JsonDbusReceiveMessageHandler(m, conn, SIGNAL_OBJECTPATH)
+								: new DbusReceiveMessageHandler(m, conn, SIGNAL_OBJECTPATH));
+				return 0;
+			} catch (IOException e) {
+				System.err.println("Error while receiving messages: " + e.getMessage());
+				return 3;
+			} catch (AssertionError e) {
+				handleAssertionError(e);
+				return 1;
+			}
+		} finally {
+			if (conn != null) {
+				conn.disconnect();
+			}
+		}
+	}
 }

@@ -5,27 +5,27 @@ import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPoin
 
 class JsonAttachment {
 
-    String contentType;
-    String filename;
-    String id;
-    int size;
+	String contentType;
+	String filename;
+	String id;
+	int size;
 
-    JsonAttachment(SignalServiceAttachment attachment) {
-        this.contentType = attachment.getContentType();
+	JsonAttachment(SignalServiceAttachment attachment) {
+		this.contentType = attachment.getContentType();
 
-        final SignalServiceAttachmentPointer pointer = attachment.asPointer();
-        if (attachment.isPointer()) {
-            this.id = String.valueOf(pointer.getRemoteId());
-            if (pointer.getFileName().isPresent()) {
-                this.filename = pointer.getFileName().get();
-            }
-            if (pointer.getSize().isPresent()) {
-                this.size = pointer.getSize().get();
-            }
-        }
-    }
+		final SignalServiceAttachmentPointer pointer = attachment.asPointer();
+		if (attachment.isPointer()) {
+			this.id = String.valueOf(pointer.getRemoteId());
+			if (pointer.getFileName().isPresent()) {
+				this.filename = pointer.getFileName().get();
+			}
+			if (pointer.getSize().isPresent()) {
+				this.size = pointer.getSize().get();
+			}
+		}
+	}
 
-    JsonAttachment(String filename) {
-        this.filename = filename;
-    }
+	JsonAttachment(String filename) {
+		this.filename = filename;
+	}
 }

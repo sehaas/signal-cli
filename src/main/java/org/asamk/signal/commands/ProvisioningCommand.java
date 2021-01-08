@@ -6,5 +6,5 @@ import net.sourceforge.argparse4j.inf.Namespace;
 
 public interface ProvisioningCommand extends Command {
 
-    int handleCommand(Namespace ns, ProvisioningManager m);
+	int handleCommand(Namespace ns, ProvisioningManager m);
 }

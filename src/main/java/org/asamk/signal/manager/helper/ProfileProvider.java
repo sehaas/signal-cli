@@ -5,5 +5,5 @@ import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
 public interface ProfileProvider {
 
-    SignalProfile getProfile(SignalServiceAddress address);
+	SignalProfile getProfile(SignalServiceAddress address);
 }

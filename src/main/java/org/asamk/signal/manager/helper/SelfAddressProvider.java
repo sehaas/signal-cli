@@ -4,5 +4,5 @@ import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
 public interface SelfAddressProvider {
 
-    SignalServiceAddress getSelfAddress();
+	SignalServiceAddress getSelfAddress();
 }

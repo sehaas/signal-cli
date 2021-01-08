@@ -5,5 +5,5 @@ import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
 public interface ProfileKeyCredentialProvider {
 
-    ProfileKeyCredential getProfileKeyCredential(SignalServiceAddress address);
+	ProfileKeyCredential getProfileKeyCredential(SignalServiceAddress address);
 }

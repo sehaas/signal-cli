@@ -11,22 +11,22 @@ import net.sourceforge.argparse4j.inf.Subparser;
 
 public class RemovePinCommand implements LocalCommand {
 
-    @Override
-    public void attachToSubparser(final Subparser subparser) {
-    }
+	@Override
+	public void attachToSubparser(final Subparser subparser) {
+	}
 
-    @Override
-    public int handleCommand(final Namespace ns, final Manager m) {
-        if (!m.isRegistered()) {
-            System.err.println("User is not registered.");
-            return 1;
-        }
-        try {
-            m.setRegistrationLockPin(Optional.absent());
-            return 0;
-        } catch (IOException | UnauthenticatedResponseException e) {
-            System.err.println("Remove pin error: " + e.getMessage());
-            return 3;
-        }
-    }
+	@Override
+	public int handleCommand(final Namespace ns, final Manager m) {
+		if (!m.isRegistered()) {
+			System.err.println("User is not registered.");
+			return 1;
+		}
+		try {
+			m.setRegistrationLockPin(Optional.absent());
+			return 0;
+		} catch (IOException | UnauthenticatedResponseException e) {
+			System.err.println("Remove pin error: " + e.getMessage());
+			return 3;
+		}
+	}
 }

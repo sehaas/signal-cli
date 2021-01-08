@@ -8,50 +8,50 @@ import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
 public class IdentityInfo {
 
-    SignalServiceAddress address;
-    IdentityKey identityKey;
-    TrustLevel trustLevel;
-    Date added;
+	SignalServiceAddress address;
+	IdentityKey identityKey;
+	TrustLevel trustLevel;
+	Date added;
 
-    public IdentityInfo(SignalServiceAddress address, IdentityKey identityKey, TrustLevel trustLevel) {
-        this.address = address;
-        this.identityKey = identityKey;
-        this.trustLevel = trustLevel;
-        this.added = new Date();
-    }
+	public IdentityInfo(SignalServiceAddress address, IdentityKey identityKey, TrustLevel trustLevel) {
+		this.address = address;
+		this.identityKey = identityKey;
+		this.trustLevel = trustLevel;
+		this.added = new Date();
+	}
 
-    IdentityInfo(SignalServiceAddress address, IdentityKey identityKey, TrustLevel trustLevel, Date added) {
-        this.address = address;
-        this.identityKey = identityKey;
-        this.trustLevel = trustLevel;
-        this.added = added;
-    }
+	IdentityInfo(SignalServiceAddress address, IdentityKey identityKey, TrustLevel trustLevel, Date added) {
+		this.address = address;
+		this.identityKey = identityKey;
+		this.trustLevel = trustLevel;
+		this.added = added;
+	}
 
-    public SignalServiceAddress getAddress() {
-        return address;
-    }
+	public SignalServiceAddress getAddress() {
+		return address;
+	}
 
-    public void setAddress(final SignalServiceAddress address) {
-        this.address = address;
-    }
+	public void setAddress(final SignalServiceAddress address) {
+		this.address = address;
+	}
 
-    boolean isTrusted() {
-        return trustLevel == TrustLevel.TRUSTED_UNVERIFIED || trustLevel == TrustLevel.TRUSTED_VERIFIED;
-    }
+	boolean isTrusted() {
+		return trustLevel == TrustLevel.TRUSTED_UNVERIFIED || trustLevel == TrustLevel.TRUSTED_VERIFIED;
+	}
 
-    public IdentityKey getIdentityKey() {
-        return this.identityKey;
-    }
+	public IdentityKey getIdentityKey() {
+		return this.identityKey;
+	}
 
-    public TrustLevel getTrustLevel() {
-        return this.trustLevel;
-    }
+	public TrustLevel getTrustLevel() {
+		return this.trustLevel;
+	}
 
-    public Date getDateAdded() {
-        return this.added;
-    }
+	public Date getDateAdded() {
+		return this.added;
+	}
 
-    public byte[] getFingerprint() {
-        return identityKey.getPublicKey().serialize();
-    }
+	public byte[] getFingerprint() {
+		return identityKey.getPublicKey().serialize();
+	}
 }

@@ -6,14 +6,14 @@ import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
 public class JsonMention {
 
-    String name;
-    int start;
-    int length;
+	String name;
+	int start;
+	int length;
 
-    JsonMention(SignalServiceDataMessage.Mention mention, Manager m) {
-        this.name = m.resolveSignalServiceAddress(new SignalServiceAddress(mention.getUuid(), null))
-                .getLegacyIdentifier();
-        this.start = mention.getStart();
-        this.length = mention.getLength();
-    }
+	JsonMention(SignalServiceDataMessage.Mention mention, Manager m) {
+		this.name = m.resolveSignalServiceAddress(new SignalServiceAddress(mention.getUuid(), null))
+				.getLegacyIdentifier();
+		this.start = mention.getStart();
+		this.length = mention.getLength();
+	}
 }

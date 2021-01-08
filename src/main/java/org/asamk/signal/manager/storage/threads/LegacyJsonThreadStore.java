@@ -20,41 +20,39 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class LegacyJsonThreadStore {
 
-    private static final ObjectMapper jsonProcessor = new ObjectMapper();
+	private static final ObjectMapper jsonProcessor = new ObjectMapper();
 
-    @JsonProperty("threads")
-    @JsonSerialize(using = MapToListSerializer.class)
-    @JsonDeserialize(using = ThreadsDeserializer.class)
-    private Map<String, ThreadInfo> threads = new HashMap<>();
+	@JsonProperty("threads")
+	@JsonSerialize(using = MapToListSerializer.class)
+	@JsonDeserialize(using = ThreadsDeserializer.class)
+	private Map<String, ThreadInfo> threads = new HashMap<>();
 
-    public List<ThreadInfo> getThreads() {
-        return new ArrayList<>(threads.values());
-    }
+	public List<ThreadInfo> getThreads() {
+		return new ArrayList<>(threads.values());
+	}
 
-    private static class MapToListSerializer extends JsonSerializer<Map<?, ?>> {
+	private static class MapToListSerializer extends JsonSerializer<Map<?, ?>> {
 
-        @Override
-        public void serialize(
-                final Map<?, ?> value, final JsonGenerator jgen, final SerializerProvider provider
-        ) throws IOException {
-            jgen.writeObject(value.values());
-        }
-    }
+		@Override
+		public void serialize(final Map<?, ?> value, final JsonGenerator jgen, final SerializerProvider provider)
+				throws IOException {
+			jgen.writeObject(value.values());
+		}
+	}
 
-    private static class ThreadsDeserializer extends JsonDeserializer<Map<String, ThreadInfo>> {
+	private static class ThreadsDeserializer extends JsonDeserializer<Map<String, ThreadInfo>> {
 
-        @Override
-        public Map<String, ThreadInfo> deserialize(
-                JsonParser jsonParser, DeserializationContext deserializationContext
-        ) throws IOException {
-            Map<String, ThreadInfo> threads = new HashMap<>();
-            JsonNode node = jsonParser.getCodec().readTree(jsonParser);
-            for (JsonNode n : node) {
-                ThreadInfo t = jsonProcessor.treeToValue(n, ThreadInfo.class);
-                threads.put(t.id, t);
-            }
+		@Override
+		public Map<String, ThreadInfo> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+				throws IOException {
+			Map<String, ThreadInfo> threads = new HashMap<>();
+			JsonNode node = jsonParser.getCodec().readTree(jsonParser);
+			for (JsonNode n : node) {
+				ThreadInfo t = jsonProcessor.treeToValue(n, ThreadInfo.class);
+				threads.put(t.id, t);
+			}
 
-            return threads;
-        }
-    }
+			return threads;
+		}
+	}
 }

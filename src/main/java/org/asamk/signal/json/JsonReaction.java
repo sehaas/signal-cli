@@ -5,15 +5,15 @@ import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage.Re
 
 public class JsonReaction {
 
-    String emoji;
-    String targetAuthor;
-    long targetSentTimestamp;
-    boolean isRemove;
+	String emoji;
+	String targetAuthor;
+	long targetSentTimestamp;
+	boolean isRemove;
 
-    JsonReaction(Reaction reaction, Manager m) {
-        this.emoji = reaction.getEmoji();
-        this.targetAuthor = m.resolveSignalServiceAddress(reaction.getTargetAuthor()).getLegacyIdentifier();
-        this.targetSentTimestamp = reaction.getTargetSentTimestamp();
-        this.isRemove = reaction.isRemove();
-    }
+	JsonReaction(Reaction reaction, Manager m) {
+		this.emoji = reaction.getEmoji();
+		this.targetAuthor = m.resolveSignalServiceAddress(reaction.getTargetAuthor()).getLegacyIdentifier();
+		this.targetSentTimestamp = reaction.getTargetSentTimestamp();
+		this.isRemove = reaction.isRemove();
+	}
 }

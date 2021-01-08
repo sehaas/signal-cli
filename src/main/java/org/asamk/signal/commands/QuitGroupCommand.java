@@ -24,37 +24,37 @@ import net.sourceforge.argparse4j.inf.Subparser;
 
 public class QuitGroupCommand implements LocalCommand {
 
-    @Override
-    public void attachToSubparser(final Subparser subparser) {
-        subparser.addArgument("-g", "--group").required(true).help("Specify the recipient group ID.");
-    }
+	@Override
+	public void attachToSubparser(final Subparser subparser) {
+		subparser.addArgument("-g", "--group").required(true).help("Specify the recipient group ID.");
+	}
 
-    @Override
-    public int handleCommand(final Namespace ns, final Manager m) {
-        if (!m.isRegistered()) {
-            System.err.println("User is not registered.");
-            return 1;
-        }
+	@Override
+	public int handleCommand(final Namespace ns, final Manager m) {
+		if (!m.isRegistered()) {
+			System.err.println("User is not registered.");
+			return 1;
+		}
 
-        try {
-            final GroupId groupId = Util.decodeGroupId(ns.getString("group"));
-            final Pair<Long, List<SendMessageResult>> results = m.sendQuitGroupMessage(groupId);
-            return handleTimestampAndSendMessageResults(results.first(), results.second());
-        } catch (IOException e) {
-            handleIOException(e);
-            return 3;
-        } catch (AssertionError e) {
-            handleAssertionError(e);
-            return 1;
-        } catch (GroupNotFoundException e) {
-            handleGroupNotFoundException(e);
-            return 1;
-        } catch (NotAGroupMemberException e) {
-            handleNotAGroupMemberException(e);
-            return 1;
-        } catch (GroupIdFormatException e) {
-            handleGroupIdFormatException(e);
-            return 1;
-        }
-    }
+		try {
+			final GroupId groupId = Util.decodeGroupId(ns.getString("group"));
+			final Pair<Long, List<SendMessageResult>> results = m.sendQuitGroupMessage(groupId);
+			return handleTimestampAndSendMessageResults(results.first(), results.second());
+		} catch (IOException e) {
+			handleIOException(e);
+			return 3;
+		} catch (AssertionError e) {
+			handleAssertionError(e);
+			return 1;
+		} catch (GroupNotFoundException e) {
+			handleGroupNotFoundException(e);
+			return 1;
+		} catch (NotAGroupMemberException e) {
+			handleNotAGroupMemberException(e);
+			return 1;
+		} catch (GroupIdFormatException e) {
+			handleGroupIdFormatException(e);
+			return 1;
+		}
+	}
 }

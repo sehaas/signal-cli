@@ -6,17 +6,17 @@ import org.whispersystems.signalservice.api.messages.multidevice.SentTranscriptM
 
 class JsonSyncDataMessage extends JsonDataMessage {
 
-    String destination;
+	String destination;
 
-    JsonSyncDataMessage(SentTranscriptMessage transcriptMessage, Manager m) {
-        super(transcriptMessage.getMessage(), m);
-        if (transcriptMessage.getDestination().isPresent()) {
-            this.destination = transcriptMessage.getDestination().get().getLegacyIdentifier();
-        }
-    }
+	JsonSyncDataMessage(SentTranscriptMessage transcriptMessage, Manager m) {
+		super(transcriptMessage.getMessage(), m);
+		if (transcriptMessage.getDestination().isPresent()) {
+			this.destination = transcriptMessage.getDestination().get().getLegacyIdentifier();
+		}
+	}
 
-    JsonSyncDataMessage(Signal.SyncMessageReceived messageReceived) {
-        super(messageReceived);
-        destination = messageReceived.getDestination();
-    }
+	JsonSyncDataMessage(Signal.SyncMessageReceived messageReceived) {
+		super(messageReceived);
+		destination = messageReceived.getDestination();
+	}
 }

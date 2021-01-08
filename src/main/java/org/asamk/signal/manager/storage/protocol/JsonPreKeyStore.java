@@ -21,88 +21,86 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 class JsonPreKeyStore implements PreKeyStore {
 
-    final static Logger logger = LoggerFactory.getLogger(JsonPreKeyStore.class);
+	final static Logger logger = LoggerFactory.getLogger(JsonPreKeyStore.class);
 
-    private final Map<Integer, byte[]> store = new HashMap<>();
+	private final Map<Integer, byte[]> store = new HashMap<>();
 
-    public JsonPreKeyStore() {
+	public JsonPreKeyStore() {
 
-    }
+	}
 
-    private void addPreKeys(Map<Integer, byte[]> preKeys) {
-        store.putAll(preKeys);
-    }
+	private void addPreKeys(Map<Integer, byte[]> preKeys) {
+		store.putAll(preKeys);
+	}
 
-    @Override
-    public PreKeyRecord loadPreKey(int preKeyId) throws InvalidKeyIdException {
-        try {
-            if (!store.containsKey(preKeyId)) {
-                throw new InvalidKeyIdException("No such prekeyrecord!");
-            }
+	@Override
+	public PreKeyRecord loadPreKey(int preKeyId) throws InvalidKeyIdException {
+		try {
+			if (!store.containsKey(preKeyId)) {
+				throw new InvalidKeyIdException("No such prekeyrecord!");
+			}
 
-            return new PreKeyRecord(store.get(preKeyId));
-        } catch (IOException e) {
-            throw new AssertionError(e);
-        }
-    }
+			return new PreKeyRecord(store.get(preKeyId));
+		} catch (IOException e) {
+			throw new AssertionError(e);
+		}
+	}
 
-    @Override
-    public void storePreKey(int preKeyId, PreKeyRecord record) {
-        store.put(preKeyId, record.serialize());
-    }
+	@Override
+	public void storePreKey(int preKeyId, PreKeyRecord record) {
+		store.put(preKeyId, record.serialize());
+	}
 
-    @Override
-    public boolean containsPreKey(int preKeyId) {
-        return store.containsKey(preKeyId);
-    }
+	@Override
+	public boolean containsPreKey(int preKeyId) {
+		return store.containsKey(preKeyId);
+	}
 
-    @Override
-    public void removePreKey(int preKeyId) {
-        store.remove(preKeyId);
-    }
+	@Override
+	public void removePreKey(int preKeyId) {
+		store.remove(preKeyId);
+	}
 
-    public static class JsonPreKeyStoreDeserializer extends JsonDeserializer<JsonPreKeyStore> {
+	public static class JsonPreKeyStoreDeserializer extends JsonDeserializer<JsonPreKeyStore> {
 
-        @Override
-        public JsonPreKeyStore deserialize(
-                JsonParser jsonParser, DeserializationContext deserializationContext
-        ) throws IOException {
-            JsonNode node = jsonParser.getCodec().readTree(jsonParser);
+		@Override
+		public JsonPreKeyStore deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+				throws IOException {
+			JsonNode node = jsonParser.getCodec().readTree(jsonParser);
 
-            Map<Integer, byte[]> preKeyMap = new HashMap<>();
-            if (node.isArray()) {
-                for (JsonNode preKey : node) {
-                    Integer preKeyId = preKey.get("id").asInt();
-                    try {
-                        preKeyMap.put(preKeyId, Base64.decode(preKey.get("record").asText()));
-                    } catch (IOException e) {
-                        logger.warn("Error while decoding prekey for {}: {}", preKeyId, e.getMessage());
-                    }
-                }
-            }
+			Map<Integer, byte[]> preKeyMap = new HashMap<>();
+			if (node.isArray()) {
+				for (JsonNode preKey : node) {
+					Integer preKeyId = preKey.get("id").asInt();
+					try {
+						preKeyMap.put(preKeyId, Base64.decode(preKey.get("record").asText()));
+					} catch (IOException e) {
+						logger.warn("Error while decoding prekey for {}: {}", preKeyId, e.getMessage());
+					}
+				}
+			}
 
-            JsonPreKeyStore keyStore = new JsonPreKeyStore();
-            keyStore.addPreKeys(preKeyMap);
+			JsonPreKeyStore keyStore = new JsonPreKeyStore();
+			keyStore.addPreKeys(preKeyMap);
 
-            return keyStore;
+			return keyStore;
 
-        }
-    }
+		}
+	}
 
-    public static class JsonPreKeyStoreSerializer extends JsonSerializer<JsonPreKeyStore> {
+	public static class JsonPreKeyStoreSerializer extends JsonSerializer<JsonPreKeyStore> {
 
-        @Override
-        public void serialize(
-                JsonPreKeyStore jsonPreKeyStore, JsonGenerator json, SerializerProvider serializerProvider
-        ) throws IOException {
-            json.writeStartArray();
-            for (Map.Entry<Integer, byte[]> preKey : jsonPreKeyStore.store.entrySet()) {
-                json.writeStartObject();
-                json.writeNumberField("id", preKey.getKey());
-                json.writeStringField("record", Base64.encodeBytes(preKey.getValue()));
-                json.writeEndObject();
-            }
-            json.writeEndArray();
-        }
-    }
+		@Override
+		public void serialize(JsonPreKeyStore jsonPreKeyStore, JsonGenerator json,
+				SerializerProvider serializerProvider) throws IOException {
+			json.writeStartArray();
+			for (Map.Entry<Integer, byte[]> preKey : jsonPreKeyStore.store.entrySet()) {
+				json.writeStartObject();
+				json.writeNumberField("id", preKey.getKey());
+				json.writeStringField("record", Base64.encodeBytes(preKey.getValue()));
+				json.writeEndObject();
+			}
+			json.writeEndArray();
+		}
+	}
 }

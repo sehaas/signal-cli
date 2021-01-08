@@ -8,25 +8,25 @@ import java.nio.charset.Charset;
 
 public class IOUtils {
 
-    private IOUtils() {
-    }
+	private IOUtils() {
+	}
 
-    public static String readAll(InputStream in, Charset charset) throws IOException {
-        StringWriter output = new StringWriter();
-        byte[] buffer = new byte[4096];
-        int n;
-        while (-1 != (n = in.read(buffer))) {
-            output.write(new String(buffer, 0, n, charset));
-        }
-        return output.toString();
-    }
+	public static String readAll(InputStream in, Charset charset) throws IOException {
+		StringWriter output = new StringWriter();
+		byte[] buffer = new byte[4096];
+		int n;
+		while (-1 != (n = in.read(buffer))) {
+			output.write(new String(buffer, 0, n, charset));
+		}
+		return output.toString();
+	}
 
-    public static File getDataHomeDir() {
-        String dataHome = System.getenv("XDG_DATA_HOME");
-        if (dataHome != null) {
-            return new File(dataHome);
-        }
+	public static File getDataHomeDir() {
+		String dataHome = System.getenv("XDG_DATA_HOME");
+		if (dataHome != null) {
+			return new File(dataHome);
+		}
 
-        return new File(new File(System.getProperty("user.home"), ".local"), "share");
-    }
+		return new File(new File(System.getProperty("user.home"), ".local"), "share");
+	}
 }

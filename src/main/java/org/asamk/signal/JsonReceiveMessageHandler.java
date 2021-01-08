@@ -16,30 +16,30 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class JsonReceiveMessageHandler implements Manager.ReceiveMessageHandler {
 
-    final Manager m;
-    private final ObjectMapper jsonProcessor;
+	final Manager m;
+	private final ObjectMapper jsonProcessor;
 
-    public JsonReceiveMessageHandler(Manager m) {
-        this.m = m;
-        this.jsonProcessor = new ObjectMapper();
-        jsonProcessor.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        jsonProcessor.disable(JsonGenerator.Feature.AUTO_CLOSE_TARGET);
-    }
+	public JsonReceiveMessageHandler(Manager m) {
+		this.m = m;
+		this.jsonProcessor = new ObjectMapper();
+		jsonProcessor.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+		jsonProcessor.disable(JsonGenerator.Feature.AUTO_CLOSE_TARGET);
+	}
 
-    @Override
-    public void handleMessage(SignalServiceEnvelope envelope, SignalServiceContent content, Throwable exception) {
-        ObjectNode result = jsonProcessor.createObjectNode();
-        if (exception != null) {
-            result.putPOJO("error", new JsonError(exception));
-        }
-        if (envelope != null) {
-            result.putPOJO("envelope", new JsonMessageEnvelope(envelope, content, m));
-        }
-        try {
-            jsonProcessor.writeValue(System.out, result);
-            System.out.println();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	@Override
+	public void handleMessage(SignalServiceEnvelope envelope, SignalServiceContent content, Throwable exception) {
+		ObjectNode result = jsonProcessor.createObjectNode();
+		if (exception != null) {
+			result.putPOJO("error", new JsonError(exception));
+		}
+		if (envelope != null) {
+			result.putPOJO("envelope", new JsonMessageEnvelope(envelope, content, m));
+		}
+		try {
+			jsonProcessor.writeValue(System.out, result);
+			System.out.println();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
